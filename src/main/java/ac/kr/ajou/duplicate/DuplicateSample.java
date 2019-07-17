@@ -1,5 +1,7 @@
 package ac.kr.ajou.duplicate;
 
+import java.util.Arrays;
+
 public class DuplicateSample {
 
     public int calc(EventData ed) {
@@ -17,4 +19,5 @@ public class DuplicateSample {
 
         return 0;
     }
+
 }

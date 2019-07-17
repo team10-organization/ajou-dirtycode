@@ -32,9 +32,7 @@ public class DataBaseService {
 
     public List<Player> getAllPlayers() {
         List<Player> playerList = new ArrayList<>();
-        userDb.forEach((key, player) -> {
-            playerList.add(player);
-        });
+        userDb.forEach((key, player) -> playerList.add(player));
         return playerList;
     }
 }
