@@ -10,121 +10,173 @@ import static org.junit.Assert.assertTrue;
 
 public class ItemTest
 {
+    private String brie = "Aged Brie";
+    private String tafkal8oetc = "Backstage passes to a TAFKAL80ETC concert";
+    private String sulfras = "Sulfuras, Hand of Ragnaros";
+
     @Test
-    public void 이름이_Aged_Brie이_아니고_Backstage_passes_to_a_TAFKAL80ETC_concert가_아니고_Sulfuras_Hand_of_Ragnaros가_아니고_sellin이_1보다_작고_quality가_1보다_크면_quality_2만큼_감소() {
-        Item[] items = {new Item("Brown", 0, 10), new Item("Charlie", -3, 56),
-                new Item("Allie", -5, 4)};
+    public void updateQuality_이름이_TAFKAL80ETC이고_quality가_47이하_sellIn은_6이상_11미만이면_quality_2증가_sellIn_1감소(){
+        Item[] items = {new Item(tafkal8oetc , 6, 47)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 8);
-        assertTrue(items[1].quality == 54);
-        assertTrue(items[2].quality == 2);
+        assertThat(items[0].sellIn, is(5));
+        assertThat(items[0].quality, is(49));
     }
 
     @Test
-    public void 이름이_Aged_Brie이_아니고_Backstage_passes_to_a_TAFKAL80ETC_concert가_아니고_Sulfuras_Hand_of_Ragnaros가_아니고_quality가_1이면_quality_1만큼_감소() {
-        Item[] items = {new Item("Brown", 0, 1), new Item("Charlie", -3, 1)};
+    public void updateQuality_이름이_TAFKAL80ETC이고_quality가_49이하_sellIn은_11이상이면_quality_1증가_sellIn_1감소(){
+        Item[] items = {new Item(tafkal8oetc , 11, 49)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 0);
-        assertTrue(items[1].quality == 0);
+        assertThat(items[0].sellIn, is(10));
+        assertThat(items[0].quality, is(50));
+    }
+
+
+    @Test
+    public void updateQuality_이름이_셋_다_아니고_quality가_1초과_sellIn은_1미만이면_quality_2감소_sellIn_1감소(){
+        Item[] items = {new Item("a" , 0, 3)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].sellIn, is(-1));
+        assertThat(items[0].quality, is(1));
     }
 
     @Test
-    public void 이름이_Aged_Brie이_아니고_Backstage_passes_to_a_TAFKAL80ETC_concert가_아니고_Sulfuras_Hand_of_Ragnaros가_아니고__quality가_1보다_크지만_sellin이_1이상이면_quality_1만큼_감소() {
-        Item[] items = {new Item("Brown", 1, 10), new Item("Charlie", 15, 56)};
+    public void updateQuality_이름이_셋_다_아니고_quality가_1이고_sellIn은_1미만이면_quality_1감소_sellIn_1감소(){
+        Item[] items = {new Item("a" , 0, 1)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 9);
-        assertTrue(items[1].quality == 55);
+        assertThat(items[0].sellIn, is(-1));
+        assertThat(items[0].quality, is(0));
     }
 
     @Test
-    public void 이름이_Aged_Brie이고_quality가_49보다_작고_sellin이_1보다_작으면_quality_2만큼_증가() {
-        Item[] items = {new Item("Aged Brie", 0, 43), new Item("Aged Brie", -3, -4)};
+    public void updateQuality_이름이_셋_다_아니고_quality가_0이하면_sellIn_1감소(){
+        Item[] items = {new Item("a" , 0, 0)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 45);
-        assertTrue(items[1].quality == -2);
+        assertThat(items[0].sellIn, is(-1));
+        assertThat(items[0].quality, is(0));
     }
 
     @Test
-    public void 이름이_Aged_Brie이고_quality가_50보다_작고_sellin이_1이상이면_quality_1만큼_증가() {
-        Item[] items = {new Item("Aged Brie", 1, 43), new Item("Aged Brie", 15, -4)};
+    public void updateQuality_이름이_셋_다_아니고_quality가_1초과고_sellIn은_1이상이면_quality_1감소_sellIn_1감소(){
+        Item[] items = {new Item("a" , 1, 2)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 44);
-        assertTrue(items[1].quality == -3);
+        assertThat(items[0].sellIn, is(0));
+        assertThat(items[0].quality, is(1));
     }
 
     @Test
-    public void 이름이_Aged_Brie이고_quality가_49이면_quality_1만큼_증가() {
-        Item[] items = {new Item("Aged Brie", 7, 49), new Item("Aged Brie", -4, 49)};
+    public void UpdateQuality_아이템이름이_sulfras이면_아무런변화가_없는지_확인하는_테스트(){
+        Item[] items = {new Item("Sulfuras, Hand of Ragnaros", 1,4)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].name, is("Sulfuras, Hand of Ragnaros"));
+        assertThat(items[0].sellIn, is(1));
+        assertThat(items[0].quality, is(4));
+    }
+
+    @Test
+    public void UpdateQuality_아이템이름이_brie이고_quality가_50이상이면_sellin이_1감소() {
+        Item[] items = {new Item("Aged Brie", 0, 50), new Item("Aged Brie", 1, 51),
+                new Item("Aged Brie", 2, 52)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertTrue(items[0].sellIn == -1);
+        assertTrue(items[1].sellIn == 0);
+        assertTrue(items[2].sellIn == 1);
+    }
+
+    @Test
+    public void UpdateQuality_아이템이름이_brie이고_quality가_49이면_quality가_1증가하고_sellin이_1감소() {
+        Item[] items = {new Item("Aged Brie", 0, 49), new Item("Aged Brie", 1, 49),
+                new Item("Aged Brie", 2, 49)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertTrue(items[0].sellIn == -1);
+        assertTrue(items[1].sellIn == 0);
+        assertTrue(items[2].sellIn == 1);
+    }
+
+    @Test
+    public void UpdateQuality_아이템이름이_brie이고_quality가_48이하이고_sellin이_1이상이면_quality가_1증가_sellin이_1감소() {
+        Item[] items = {new Item("Aged Brie", 1, 48), new Item("Aged Brie", 2, 47),
+                new Item("Aged Brie", 3, 46)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertTrue(items[0].quality == 49);
+        assertTrue(items[1].quality == 48);
+        assertTrue(items[2].quality == 47);
+        assertTrue(items[0].sellIn == 0);
+        assertTrue(items[1].sellIn == 1);
+        assertTrue(items[2].sellIn == 2);
+    }
+
+    @Test
+    public void UpdateQuality_아이템이름이_brie이고_quality가_48이하이고_sellin이_1미만이면_quality가_2증가_sellin이_1감소() {
+        Item[] items = {new Item("Aged Brie", 0, 48), new Item("Aged Brie", 0, 47),
+                new Item("Aged Brie", 0, 46)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
         assertTrue(items[0].quality == 50);
-        assertTrue(items[1].quality == 50);
+        assertTrue(items[1].quality == 49);
+        assertTrue(items[2].quality == 48);
+        assertTrue(items[0].sellIn == -1);
+        assertTrue(items[1].sellIn == -1);
+        assertTrue(items[2].sellIn == -1);
     }
 
     @Test
-    public void 이름이_Backstage_passes_to_a_TAFKAL80ETC_concert이고_sellin이_1보다_작으면_quality_0됨() {
-        Item[] items = {new Item("Backstage passes to a TAFKAL80ETC concert", 0, 43),
-                new Item("Backstage passes to a TAFKAL80ETC concert", -3, -4)};
+    public void updateQuality_이름이_TAFKAL80ETC는_quality가_50이상이면_sellin만_1감소(){
+        Item[] items = {new Item(tafkal8oetc, 23, 54)
+                , new Item(tafkal8oetc, 64, 103)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 0);
-        assertTrue(items[1].quality == 0);
+        assertTrue(items[0].quality == 54 && items[0].sellIn == 22);
+        assertTrue(items[1].quality == 103 && items[1].sellIn == 63);
     }
 
     @Test
-    public void 이름이_Backstage_passes_to_a_TAFKAL80ETC_concert이고_quality가_50보다_작고_sellin이_11이상이면_quality_1만큼_증가() {
-        Item[] items = {new Item("Backstage passes to a TAFKAL80ETC concert", 11, 43),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 106, -4)};
+    public void updateQuality_이름이_TAFKAL80ETC는_quality가_49이면_quality_1증가_sellin_1감소(){
+        Item[] items = {new Item(tafkal8oetc, 23, 49)
+                , new Item(tafkal8oetc, 64, 49)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 44);
-        assertTrue(items[1].quality == -3);
+        assertTrue(items[0].quality == 50 && items[0].sellIn == 22);
+        assertTrue(items[1].quality == 50 && items[1].sellIn == 63);
     }
 
     @Test
-    public void 이름이_Backstage_passes_to_a_TAFKAL80ETC_concert이고_quality가_47보다_작으면서_sellin이_1이상이고_6보다_작으면__quality_3만큼_증가() {
-        Item[] items = {new Item("Backstage passes to a TAFKAL80ETC concert", 4, 43),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 3, -4)};
+    public void updateQuality_이름이_TAFKAL80ETC는_quality가_48이고_sellin이_1이상_11미만이면_quality_2증가_sellin_1감소(){
+        Item[] items = {new Item(tafkal8oetc, 1, 48)
+                , new Item(tafkal8oetc, 10, 48)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 46);
-        assertTrue(items[1].quality == -1);
+        assertTrue(items[0].quality == 50 && items[0].sellIn == 0);
+        assertTrue(items[1].quality == 50 && items[1].sellIn == 9);
     }
 
     @Test
-    public void 이름이_Backstage_passes_to_a_TAFKAL80ETC_concert이고_quality가_48이고_sellin이_1이상이고_11보다_작으면__quality_2만큼_증가() {
-        Item[] items = {new Item("Backstage passes to a TAFKAL80ETC concert", 3, 48),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 48)};
+    public void updateQuality_이름이_TAFKAL80ETC는_quality가_47이하_sellin이_1이상_6미만이면_quality_3증가_sellin_1감소(){
+        Item[] items = {new Item(tafkal8oetc, 1, 47)
+                , new Item(tafkal8oetc, 5, 12)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 50);
-        assertTrue(items[1].quality == 50);
+        assertTrue(items[0].quality == 50 && items[0].sellIn == 0);
+        assertTrue(items[1].quality == 15 && items[1].sellIn == 4);
     }
 
     @Test
-    public void 이름이_Backstage_passes_to_a_TAFKAL80ETC_concert이고_quality가_48이하이고_sellin이_6이상이고_11보다_작으면__quality_2만큼_증가() {
-        Item[] items = {new Item("Backstage passes to a TAFKAL80ETC concert", 8, 15),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 48)};
+    public void updateQuality_이름이_TAFKAL80ETC는_quality가_47이하_sellin이_6이상_11미만이면_quality_2증가_sellin_1감소(){
+        Item[] items = {new Item(tafkal8oetc, 6, 47)
+                , new Item(tafkal8oetc, 10, 12)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQuality();
-        assertTrue(items[0].quality == 17);
-        assertTrue(items[1].quality == 50);
+        assertTrue(items[0].quality == 49 && items[0].sellIn == 5);
+        assertTrue(items[1].quality == 14 && items[1].sellIn == 9);
     }
-
-    @Test
-    public void 이름이_Backstage_passes_to_a_TAFKAL80ETC_concert이고_quality가_49이고_sellin이_1이상이면__quality_1만큼_증가() {
-        Item[] items = {new Item("Backstage passes to a TAFKAL80ETC concert", 8, 49),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49)};
-        DirtySample dirtySample = new DirtySample(items);
-        dirtySample.updateQuality();
-        assertTrue(items[0].quality == 50);
-        assertTrue(items[1].quality == 50);
-    }
-
 
 }

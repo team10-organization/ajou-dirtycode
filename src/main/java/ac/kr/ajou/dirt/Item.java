@@ -33,12 +33,12 @@ public class Item {
         this.quality = this.quality + 1;
     }
 
-    public void lowerSellln()
+    public void lowerSellIn()
     {
         this.sellIn = this.sellIn - 1;
     }
 
-    public void higherSellln()
+    public void higherSellIn()
     {
         this.sellIn = this.sellIn - 1;
     }
