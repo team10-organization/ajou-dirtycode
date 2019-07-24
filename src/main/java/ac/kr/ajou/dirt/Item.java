@@ -1,5 +1,9 @@
 package ac.kr.ajou.dirt;
 
+import lombok.Data;
+
+@Data
+
 public class Item {
 
     public String name;
@@ -18,4 +22,31 @@ public class Item {
     public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
+
+
+    public void lowerQuality()
+    {
+        this.quality = this.quality -1;
+    }
+
+    public void higherQuality()
+    {
+        this.quality = this.quality + 1;
+    }
+
+    public void lowerSellIn()
+    {
+        this.sellIn = this.sellIn - 1;
+    }
+
+    public void higherSellIn()
+    {
+        this.sellIn = this.sellIn - 1;
+    }
+
+    public void zeroQuality()
+    {
+        this.quality = this.quality - this.quality;
+    }
+
 }
