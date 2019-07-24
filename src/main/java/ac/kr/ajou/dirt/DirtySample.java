@@ -81,4 +81,25 @@ public class DirtySample {
             }
         }
     }
+
+
+    public void lowerquality(Item item)
+    {
+        item.quality = item.quality - 1;
+    }
+
+    public void higherquality(Item item)
+    {
+        item.quality = item.quality + 1;
+    }
+
+    public void lowersellin(Item item)
+    {
+        item.sellIn = item.sellIn - 1;
+    }
+
+    public void highersellin(Item item)
+    {
+        item.sellIn = item.sellIn - 1;
+    }
 }
