@@ -20,31 +20,32 @@ public class DirtySample {
     private void updateQualityForMinusSellln(Item item) {
         if (item.sellIn < 0)
         {
+            if(isBackStage(item)) item.zeroQuality();
+
             if (!isAged_brie(item))
             {
                 if (!isBackStage(item))
                 {
-                    lowerQualityifnotSulfurasandPlusQuality(item);
-                }
-                else
-                {
-                    item.zeroquality();
+                    lowerQualityifPositiveQualityandNotSulfuras(item);
                 }
             }
             else
             {
-                if (item.quality < 50)
-                {
-                    item.higherquality();
-                }
+                higherQualitybelow50(item);
             }
         }
     }
 
+    private void higherQualitybelow50(Item item) {
+        if (item.quality < 50) {
+            item.higherQuality();
+        }
+    }
+
     private void updateQualitybyUniqueName(Item item) {
-        if (!isAged_brie(item) && !isBackStage(item))
+        if (!isBackStage(item) && !isAged_brie(item))
         {
-            lowerQualityifnotSulfurasandPlusQuality(item);
+            lowerQualityifPositiveQualityandNotSulfuras(item);
         }
 
         else
@@ -55,30 +56,28 @@ public class DirtySample {
 
                     if (isBackStage(item))
                     {
-                        if (item.sellIn < 11)
-                        {
-                            if (item.quality < 50)
-                            {
-                                item.higherquality();
-                            }
-                        }
-
-                         if (item.sellIn < 6)
-                        {
-                            if (item.quality < 50)
-                            {
-                                item.higherquality();
-                            }
-                        }
+                        higherQualitybySellln(item);
                     }
                 }
             }
     }
 
-    private void lowerQualityifnotSulfurasandPlusQuality(Item item) {
+    private void higherQualitybySellln(Item item) {
+        if (item.sellIn < 11)
+        {
+            higherQualitybelow50(item);
+        }
+
+        if (item.sellIn < 6)
+       {
+           higherQualitybelow50(item);
+       }
+    }
+
+    private void lowerQualityifPositiveQualityandNotSulfuras(Item item) {
         if (item.quality > 0) {
             if (!isSulfuras(item)) {
-                item.lowerquality();
+                item.lowerQuality();
             }
         }
     }
@@ -99,8 +98,13 @@ public class DirtySample {
     private void lowerSelllnfornotSulfuras(Item item) {
         if (!isSulfuras(item))
         {
-            item.lowersellln();
+            item.lowerSellln();
         }
+    }
+
+    private boolean isNotUniqueName(Item item)
+    {
+        return !(isBackStage(item)&&isAged_brie(item)&&isSulfuras(item));
     }
 
 

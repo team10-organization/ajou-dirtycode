@@ -23,27 +23,27 @@ public class Item {
     }
 
 
-    public void lowerquality()
+    public void lowerQuality()
     {
         this.quality = this.quality -1;
     }
 
-    public void higherquality()
+    public void higherQuality()
     {
         this.quality = this.quality + 1;
     }
 
-    public void lowersellln()
+    public void lowerSellln()
     {
         this.sellIn = this.sellIn - 1;
     }
 
-    public void highersellln()
+    public void higherSellln()
     {
         this.sellIn = this.sellIn - 1;
     }
 
-    public void zeroquality()
+    public void zeroQuality()
     {
         this.quality = this.quality - this.quality;
     }
