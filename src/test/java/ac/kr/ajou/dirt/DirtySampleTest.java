@@ -77,53 +77,8 @@ public class DirtySampleTest {
         assertThat(items[0].sellIn, is(5));
         assertThat(items[0].quality, is(49));
     }
-
-    @Test
-    public void updateQuality_이름이_TAFKAL80ETC이고_quality가_49이하_sellIn은_11이상이면_quality_1증가_sellIn_1감소() {
-        Item[] items = {new Item(tafkal8oetc, 11, 49)};
-        DirtySample dirtySample = new DirtySample(items);
-        dirtySample.updateQuality();
-        assertThat(items[0].sellIn, is(10));
-        assertThat(items[0].quality, is(50));
-    }
-
-
-    @Test
-    public void updateQuality_이름이_셋_다_아니고_quality가_1초과_sellIn은_1미만이면_quality_2감소_sellIn_1감소() {
-        Item[] items = {new Item("a", 0, 3)};
-        DirtySample dirtySample = new DirtySample(items);
-        dirtySample.updateQuality();
-        assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(1));
-    }
-
-    @Test
-    public void updateQuality_이름이_셋_다_아니고_quality가_1이고_sellIn은_1미만이면_quality_1감소_sellIn_1감소() {
-        Item[] items = {new Item("a", 0, 1)};
-        DirtySample dirtySample = new DirtySample(items);
-        dirtySample.updateQuality();
-        assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(0));
-    }
-
-    @Test
-    public void updateQuality_이름이_셋_다_아니고_quality가_0이하면_sellIn_1감소() {
-        Item[] items = {new Item("a", 0, 0)};
-        DirtySample dirtySample = new DirtySample(items);
-        dirtySample.updateQuality();
-        assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(0));
-    }
-
-    @Test
-    public void updateQuality_이름이_셋_다_아니고_quality가_1초과고_sellIn은_1이상이면_quality_1감소_sellIn_1감소() {
-        Item[] items = {new Item("a", 1, 2)};
-        DirtySample dirtySample = new DirtySample(items);
-        dirtySample.updateQuality();
-        assertThat(items[0].sellIn, is(0));
-        assertThat(items[0].quality, is(1));
-    }
-
+    
+    
     @Test
     public void updateQuality_이름이_TAFKAL80ETC는_quality가_50이상이면_sellin만_1감소() {
         Item[] items = {new Item(tafkal8oetc, 23, 54)
@@ -172,5 +127,51 @@ public class DirtySampleTest {
         dirtySample.updateQuality();
         Assert.assertTrue(items[0].quality == 49 && items[0].sellIn == 5);
         Assert.assertTrue(items[1].quality == 14 && items[1].sellIn == 9);
+    }
+
+    @Test
+    public void updateQuality_이름이_TAFKAL80ETC이고_quality가_49이하_sellIn은_11이상이면_quality_1증가_sellIn_1감소() {
+        Item[] items = {new Item(tafkal8oetc, 11, 49)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].sellIn, is(10));
+        assertThat(items[0].quality, is(50));
+    }
+
+
+    @Test
+    public void updateQuality_이름이_셋_다_아니고_quality가_1초과_sellIn은_1미만이면_quality_2감소_sellIn_1감소() {
+        Item[] items = {new Item("a", 0, 3)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].sellIn, is(-1));
+        assertThat(items[0].quality, is(1));
+    }
+
+    @Test
+    public void updateQuality_이름이_셋_다_아니고_quality가_1이고_sellIn은_1미만이면_quality_1감소_sellIn_1감소() {
+        Item[] items = {new Item("a", 0, 1)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].sellIn, is(-1));
+        assertThat(items[0].quality, is(0));
+    }
+
+    @Test
+    public void updateQuality_이름이_셋_다_아니고_quality가_0이하면_sellIn_1감소() {
+        Item[] items = {new Item("a", 0, 0)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].sellIn, is(-1));
+        assertThat(items[0].quality, is(0));
+    }
+
+    @Test
+    public void updateQuality_이름이_셋_다_아니고_quality가_1초과고_sellIn은_1이상이면_quality_1감소_sellIn_1감소() {
+        Item[] items = {new Item("a", 1, 2)};
+        DirtySample dirtySample = new DirtySample(items);
+        dirtySample.updateQuality();
+        assertThat(items[0].sellIn, is(0));
+        assertThat(items[0].quality, is(1));
     }
 }
