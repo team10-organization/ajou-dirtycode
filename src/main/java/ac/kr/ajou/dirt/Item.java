@@ -1,5 +1,8 @@
 package ac.kr.ajou.dirt;
 
+import lombok.Data;
+
+@Data
 public class Item {
 
     public String name;
