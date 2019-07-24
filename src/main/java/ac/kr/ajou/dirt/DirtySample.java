@@ -7,7 +7,7 @@ class DirtySample {
         this.items = items;
     }
 
-    public void updateQuality() {
+    public void updateQualityAndSellIn() {
         for (int i = 0; i < items.length; i++) {
             switch (items[i].name) {
                 case "Sulfuras, Hand of Ragnaros":
