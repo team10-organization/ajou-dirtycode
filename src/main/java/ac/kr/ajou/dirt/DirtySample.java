@@ -11,24 +11,20 @@ public class DirtySample {
     {
         for (int i = 0; i < items.length; i++)
         {
-            checknameisnotBrieorBackstage(items[i]);
-            lowerselllnfornotSulfuras(items[i]);
-            isselllnminus(items[i]);
+            updateQualitybyUniqueName(items[i]);
+            lowerSelllnfornotSulfuras(items[i]);
+            updateQualityForMinusSellln(items[i]);
         }
     }
 
-    private void isselllnminus(Item item) {
+    private void updateQualityForMinusSellln(Item item) {
         if (item.sellIn < 0)
         {
             if (!isAged_brie(item))
             {
                 if (!isBackStage(item))
                 {
-                    if (item.quality > 0) {
-                        if (!isSulfuras(item)) {
-                            item.lowerquality();
-                        }
-                    }
+                    lowerQualityifnotSulfurasandPlusQuality(item);
                 }
                 else
                 {
@@ -45,16 +41,10 @@ public class DirtySample {
         }
     }
 
-    private void checknameisnotBrieorBackstage(Item item) {
+    private void updateQualitybyUniqueName(Item item) {
         if (!isAged_brie(item) && !isBackStage(item))
         {
-            if (item.quality > 0)
-            {
-                if (!isSulfuras(item))
-                {
-                    item.lowerquality();
-                }
-            }
+            lowerQualityifnotSulfurasandPlusQuality(item);
         }
 
         else
@@ -85,6 +75,14 @@ public class DirtySample {
             }
     }
 
+    private void lowerQualityifnotSulfurasandPlusQuality(Item item) {
+        if (item.quality > 0) {
+            if (!isSulfuras(item)) {
+                item.lowerquality();
+            }
+        }
+    }
+
     private boolean isSulfuras(Item item) {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
@@ -98,7 +96,7 @@ public class DirtySample {
         return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
     }
 
-    private void lowerselllnfornotSulfuras(Item item) {
+    private void lowerSelllnfornotSulfuras(Item item) {
         if (!isSulfuras(item))
         {
             item.lowersellln();
