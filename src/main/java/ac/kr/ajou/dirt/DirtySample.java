@@ -17,7 +17,7 @@ public class DirtySample {
                 {
                     if (!items[i].name.equals("Sulfuras, Hand of Ragnaros"))
                     {
-                        items[i].quality = items[i].quality - 1;
+                        lowerquality(items[i]);
                     }
                 }
             }
@@ -34,7 +34,7 @@ public class DirtySample {
                             {
                                 if (items[i].quality < 50)
                                 {
-                                    items[i].quality = items[i].quality + 1;
+                                    higherquality(items[i]);
                                 }
                             }
 
@@ -42,7 +42,7 @@ public class DirtySample {
                             {
                                 if (items[i].quality < 50)
                                 {
-                                    items[i].quality = items[i].quality + 1;
+                                    higherquality(items[i]);
                                 }
                             }
                         }
@@ -51,7 +51,7 @@ public class DirtySample {
 
             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros"))
             {
-                items[i].sellIn = items[i].sellIn - 1;
+                lowersellln(items[i]);
             }
 
             if (items[i].sellIn < 0)
@@ -62,24 +62,29 @@ public class DirtySample {
                     {
                         if (items[i].quality > 0) {
                             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
+                                lowerquality(items[i]);
                             }
                         }
                     }
                     else
                     {
-                        items[i].quality = items[i].quality - items[i].quality;
+                        zeroqulity(items[i]);
                     }
                 }
                 else
                 {
                     if (items[i].quality < 50)
                     {
-                        items[i].quality = items[i].quality + 1;
+                        higherquality(items[i]);
                     }
                 }
             }
         }
+    }
+
+    private void zeroqulity(Item item)
+    {
+        item.quality = item.quality - item.quality;
     }
 
 
@@ -93,12 +98,12 @@ public class DirtySample {
         item.quality = item.quality + 1;
     }
 
-    public void lowersellin(Item item)
+    public void lowersellln(Item item)
     {
         item.sellIn = item.sellIn - 1;
     }
 
-    public void highersellin(Item item)
+    public void highersellln(Item item)
     {
         item.sellIn = item.sellIn - 1;
     }
