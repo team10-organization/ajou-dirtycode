@@ -7,51 +7,51 @@ class DirtySample {
         this.items = items;
     }
 
-    public void updateQuality()
-    {
-        for (int i = 0; i < items.length; i++)
-        {
-            if(isSulfuras(items[i])) continue;
-            else if(isAged_brie(items[i])) updateBrie(items[i]);
-            else if(isBackStage(items[i])) updatePasses(items[i]);
-            else updateRemain(items[i]);
+    public void updateQuality() {
+        for (int i = 0; i < items.length; i++) {
+            switch (items[i].name) {
+                case "Sulfuras, Hand of Ragnaros":
+                    continue;
+                case "Aged Brie":
+                    updateBrie(items[i]);
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    updatePasses(items[i]);
+                    break;
+                default:
+                    updateRemain(items[i]);
+            }
         }
     }
 
-    private void updateRemain(Item item)
-    {
-        if(isZeroQuality(item)) item.lowerQuality();
+    private void updateRemain(Item item) {
+        if (isZeroQuality(item)) item.lowerQuality();
         item.lowerSellIn();
-        if(item.sellIn < 0)
-        {
-            if(isZeroQuality(item)) item.lowerQuality();
+        if (item.sellIn < 0) {
+            if (isZeroQuality(item)) item.lowerQuality();
         }
     }
 
-    private void updatePasses(Item item)
-    {
-        if(isNotMaxQuality(item))
-        {
+    private void updatePasses(Item item) {
+        if (isNotMaxQuality(item)) {
             item.higherQuality();
             isLeft10Days(item);
             isLeft5Days(item);
         }
         item.lowerSellIn();
 
-        if(isConcertEnd(item)) item.zeroQuality();
+        if (isConcertEnd(item)) item.zeroQuality();
     }
 
 
-    private void updateBrie(Item item)
-    {
-        if(isNotMaxQuality(item)) {
+    private void updateBrie(Item item) {
+        if (isNotMaxQuality(item)) {
             item.higherQuality();
         }
         item.lowerSellIn();
 
-        if(item.sellIn < 0)
-        {
-            if(isNotMaxQuality(item)) item.higherQuality();
+        if (item.sellIn < 0) {
+            if (isNotMaxQuality(item)) item.higherQuality();
         }
 
     }
@@ -74,20 +74,6 @@ class DirtySample {
                 item.quality = item.quality + 1;
             }
         }
-    }
-
-
-    private boolean isSulfuras(Item item) {
-        return item.name.equals("Sulfuras, Hand of Ragnaros");
-    }
-
-    private boolean isAged_brie(Item item) {
-        return item.name.equals("Aged Brie");
-    }
-
-    private boolean isBackStage(Item item)
-    {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
     }
 
     private boolean isNotMaxQuality(Item item) {
