@@ -3,6 +3,7 @@ package ac.kr.ajou.dirt;
 public class DirtySample {
     public Item[] items;
 
+
     public DirtySample(Item[] items) {
         this.items = items;
     }
