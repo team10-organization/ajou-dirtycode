@@ -11,100 +11,89 @@ public class DirtySample {
     {
         for (int i = 0; i < items.length; i++)
         {
-            if (!items[i].name.equals("Aged Brie") && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert"))
+            checknameisnotBrieorBackstage(items[i]);
+//-------------------------------------------------------------------------------------------------------------------------
+            lowerselllnfornotSulfuras(items[i]);
+//-------------------------------------------------------------------------------------------------------------------------
+            isselllnminus(items[i]);
+//------------------------------------------------------------------------------------------------------------------------------
+        }
+    }
+
+    private void isselllnminus(Item item) {
+        if (item.sellIn < 0)
+        {
+            if (!item.name.equals("Aged Brie"))
             {
-                if (items[i].quality > 0)
+                if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert"))
                 {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros"))
-                    {
-                        lowerquality(items[i]);
-                    }
-                }
-            }
-
-            else
-                {
-                    if (items[i].quality < 50)
-                    {
-                        items[i].quality = items[i].quality + 1;
-
-                        if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert"))
-                        {
-                            if (items[i].sellIn < 11)
-                            {
-                                if (items[i].quality < 50)
-                                {
-                                    higherquality(items[i]);
-                                }
-                            }
-
-                             if (items[i].sellIn < 6)
-                            {
-                                if (items[i].quality < 50)
-                                {
-                                    higherquality(items[i]);
-                                }
-                            }
+                    if (item.quality > 0) {
+                        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                            item.lowerquality();
                         }
-                    }
-                }
-
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros"))
-            {
-                lowersellln(items[i]);
-            }
-
-            if (items[i].sellIn < 0)
-            {
-                if (!items[i].name.equals("Aged Brie"))
-                {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert"))
-                    {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                lowerquality(items[i]);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        zeroqulity(items[i]);
                     }
                 }
                 else
                 {
-                    if (items[i].quality < 50)
-                    {
-                        higherquality(items[i]);
-                    }
+                    item.zeroquality();
+                }
+            }
+            else
+            {
+                if (item.quality < 50)
+                {
+                    item.higherquality();
                 }
             }
         }
     }
 
-    private void zeroqulity(Item item)
-    {
-        item.quality = item.quality - item.quality;
+    private void checknameisnotBrieorBackstage(Item item) {
+        if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert"))
+        {
+            if (item.quality > 0)
+            {
+                if (!item.name.equals("Sulfuras, Hand of Ragnaros"))
+                {
+                    item.lowerquality();
+                }
+            }
+        }
+
+        else
+            {
+                if (item.quality < 50)
+                {
+                    item.quality = item.quality + 1;
+
+                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert"))
+                    {
+                        if (item.sellIn < 11)
+                        {
+                            if (item.quality < 50)
+                            {
+                                item.higherquality();
+                            }
+                        }
+
+                         if (item.sellIn < 6)
+                        {
+                            if (item.quality < 50)
+                            {
+                                item.higherquality();
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    private void lowerselllnfornotSulfuras(Item item) {
+        if (!item.name.equals("Sulfuras, Hand of Ragnaros"))
+        {
+            item.lowersellln();
+        }
     }
 
 
-    public void lowerquality(Item item)
-    {
-        item.quality = item.quality - 1;
-    }
-
-    public void higherquality(Item item)
-    {
-        item.quality = item.quality + 1;
-    }
-
-    public void lowersellln(Item item)
-    {
-        item.sellIn = item.sellIn - 1;
-    }
-
-    public void highersellln(Item item)
-    {
-        item.sellIn = item.sellIn - 1;
-    }
 }
