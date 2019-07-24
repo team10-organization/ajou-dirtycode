@@ -38,6 +38,9 @@ public class DirtySampleTest {
         Item[] items = {new Item(brie, 0, 49), new Item(brie, 1, 49), new Item(brie, 2, 49)};
         DirtySample dirtySample = new DirtySample(items);
         dirtySample.updateQualityAndSellIn();
+        Assert.assertTrue(items[0].quality == 50);
+        Assert.assertTrue(items[1].quality == 50);
+        Assert.assertTrue(items[2].quality == 50);
         Assert.assertTrue(items[0].sellIn == -1);
         Assert.assertTrue(items[1].sellIn == 0);
         Assert.assertTrue(items[2].sellIn == 1);
